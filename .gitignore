@@ -1,0 +1,11 @@
+.pio/
+**/.pio/
+.cache/
+**/.cache/
+compile_commands.json
+**/compile_commands.json
+.kmeta.yaml
+.vscode/
+**/.vscode/
+.DS_Store
+*.orig
