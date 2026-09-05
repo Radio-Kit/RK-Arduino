@@ -1207,7 +1207,7 @@ void RadioKitClass::_handleGetWifiInfo() {
 void RadioKitClass::_handleSetInput(const uint8_t* payload, uint16_t len) {
     RK_DEBUG_PRINT("[DBG] _handleSetInput: len=%d\n", len);
     uint16_t offset = 0;
-    if (_numPages > 1 && len > 0 && payload[0] < _numPages && payload[0] == _activePage) {
+    if (_numPages > 1 && len > 0 && payload[0] > 0 && payload[0] < _numPages && payload[0] == _activePage) {
         offset = 1; // skip page prefix byte
     }
     for (uint8_t i = 0; i < _widgetCount; i++) {
@@ -1246,7 +1246,7 @@ void RadioKitClass::_handleVarUpdate(const uint8_t* payload, uint16_t len) {
     uint8_t flags = payload[1];
     uint8_t valOffset = 2;
 
-    if (_numPages > 1 && len >= 3 && payload[0] < _numPages && payload[1] < _widgetCount && _widgets[payload[1]]->page() == payload[0]) {
+    if (_numPages > 1 && len >= 3 && payload[0] > 0 && payload[0] < _numPages && payload[1] < _widgetCount && _widgets[payload[1]]->page() == payload[0]) {
         // Page prefix present: [PAGE(1)] [WIDGET_ID(1)] [FLAGS(1)] [VALUES...]
         widgetId = payload[1];
         flags = payload[2];
