@@ -28,8 +28,7 @@
 // ────────────────────────────────────────────────────────────
 void setup() {
   Serial.begin(1000000);
-  while (!Serial) { delay(10); }
-  delay(500);
+  delay(100);
   Serial.println("--- RadioKit MultiPageController Start ---");
 
   // Initialize RadioKit from the UI config and start transports.

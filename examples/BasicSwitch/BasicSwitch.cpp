@@ -19,14 +19,13 @@
 #include "RADIOKIT.h"
 
 // ── Pin definitions ───────────────────────────────────────────
-#define LED_PIN       2  // This is a regular LED, not a neopixel!!!
+#define LED_PIN      42  // Builtin LED on TrackLink V2 (L0)
 #define BUTTON_PIN   14
 
 // ────────────────────────────────────────────────────────────
 void setup() {
   Serial.begin(1000000);
-  while (!Serial) { delay(10); } // Wait for host to open port (DTR/RTS)
-  delay(500); // Brief settle time after DTR received
+  delay(500);
 
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
@@ -47,21 +46,12 @@ static bool lastSwitchState = false;
 
 // ────────────────────────────────────────────────────────────
 void loop() {
-  // Always call update() to process incoming packets and manage connections.
   RadioKit.update();
 
-  // Sync the physical LED only when the switch state changes.
   bool switchNow = slide_switch_1.rk.state;
   if (switchNow != lastSwitchState) {
     lastSwitchState = switchNow;
     digitalWrite(LED_PIN, switchNow ? HIGH : LOW);
   }
-
-  // button_1 → led_1 (direct mapping)
-  led_1.rk.state = button_1.rk.state;
-
-  // Physical button on BUTTON_PIN → led_2 (direct mapping)
-  bool btnPressed = (digitalRead(BUTTON_PIN) == LOW);
-  led_2.rk.state = btnPressed;
 }
 

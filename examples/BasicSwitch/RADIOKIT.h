@@ -183,8 +183,8 @@ static inline void initRadioKit() {
 
   RadioKit.begin();
 
-  RadioKit.startBLE();
   RadioKit.startSerial(Serial);
+  RadioKit.startBLE();
 }
 
 #endif // RADIOKIT_UI_H

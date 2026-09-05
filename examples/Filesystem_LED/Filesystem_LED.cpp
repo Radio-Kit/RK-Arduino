@@ -13,7 +13,7 @@
 #include <Arduino.h>
 #include "RADIOKIT.h"
 
-static const int LED_PIN = 40;
+static const int LED_PIN = 42; // Builtin LED on TrackLink V2 (L0)
 static bool lastSwitchState = false;
 
 void setup() {
